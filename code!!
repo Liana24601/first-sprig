@@ -7,6 +7,10 @@ yippee
     const goal = "g";
     const wall = "w";
     const rords = "r";
+    const and = "a";
+    const gong = "o";
+    const seek = "s";
+    const find = "f";
 
 setLegend(
     [ player, bitmap`
@@ -59,35 +63,100 @@ setLegend(
 ................
 ................
 ................
-................`]
-  /*  [ rords, bitmap`
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCC
-CCCCCCCCCC
-*/
+................`],
+    [ rords, bitmap`
+................
+................
+................
+................
+................
+................
+.5.5.555.55..555
+.5.5..5..5.5.5..
+.555..5..5.5.55.
+.5.5..5..5.5.5..
+.5.5.555.55..555
+................
+.555555555555555
+................
+................
+................`],
+    [ and, bitmap`
+................
+................
+................
+................
+................
+................
+.....5..5..5.55.
+....5.5.55.5.5.5
+....555.5555.5.5
+....5.5.5.55.5.5
+....5.5.5..5.55.
+................
+....555555555555
+................
+................
+................`],
+    [ gong, bitmap`
+................
+................
+................
+................
+................
+................
+....5555..55....
+....5....5..5...
+....5.55.5..5...
+....5..5.5..5...
+....5555..55....
+................
+....555555555...
+................
+................
+................`],
+    [ seek, bitmap`
+................
+................
+................
+................
+................
+................
+555.555.555.5.5.
+5...5...5...5.5.
+555.55..555.55..
+..5.5...5...5.5.
+555.555.555.5.5.
+................
+555555555555555.
+................
+................
+................`], 
+    [ find, bitmap`
+555.555.5..5.55.
+5....5..55.5.5.5
+55...5..5555.5.5
+5....5..5.55.5.5
+5...555.5..5.55.
+................
+5555....5.......
+..5.....5.......
+5.5.555.555.555.
+5.5.5.5.5.5.5.5.
+555.555.5.5.5.5.
+............3...
+.............3..
+.33333333333333.
+.............3..
+............3...`],
 );
-
-setSolids([])
 
 let level = 0
 const levels = [
     map`
+raos
 ....
-....
-p..g`,
+pf.g`,
 	map`
 .w...w
 pw.w.w
@@ -125,6 +194,33 @@ wwww.wwwww.w..
 p....w.....w..
 wwww.w.www.www
 ...w.w...w.w..`,
+    map`
+..w.w.w.w..ww...
+ww......ww....w.
+...wwww.w.w.www.
+.ww...w.www.w...
+....w.w...w.w.w.
+..www.www...w..w
+ww....wpwwwwww..
+...wwww.......wg
+.ww...wwwwwww..w
+....w..w.....w.w
+wwwwww.w.w.w...w
+.........w.wwwww
+.wwwwwwwww......`,
+    map`
+...wwww........w...
+.w......wwww.w..w..
+..wwwwww....w.w..ww
+..w......ww..w.w..w
+.w..www.ww.w..w.w.w
+.w.w....w...w.www.w
+.w..w..w.w..w...w.w
+.ww..ww...w..w..w.w
+..ww....w.www...w.w
+.w.wwwwww...w.w.w.w
+..w...w.www.w.w.w.w
+w...w..gwp..w.w...w`,
 ]
 
 setSolids([ player, wall ]);
@@ -147,6 +243,7 @@ onInput("a", () => {
 	getFirst(player).x -= 1
 })
 
+  
 // these get run after every input
 afterInput(() => {
     const goalsCovered = tilesWith(player, goal); // tiles that both contain the player and goal
@@ -160,7 +257,7 @@ afterInput(() => {
         if (level < levels.length) {
             setMap(levels[level]);
         } else {
-            addText("you win!", { y: 4, color: color`6` });
+            addText("Congrats! you win!", { y: 4, color: color`4` });
         }
     }
 });
