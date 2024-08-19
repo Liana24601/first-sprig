@@ -12,6 +12,43 @@ yippee
     const seek = "s";
     const find = "f";
 
+const melody = tune`
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: C4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: C4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: C4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: F4^500,
+500: C4^500,
+500: C4^500,
+500: C4^500`
+
+const playback = playTune(melody, Infinity)
+
+
 setLegend(
     [ player, bitmap`
 ................
@@ -131,7 +168,7 @@ setLegend(
 555555555555555.
 ................
 ................
-................`], 
+................`],
     [ find, bitmap`
 555.555.5..5.55.
 5....5..55.5.5.5
@@ -219,8 +256,57 @@ wwwwww.w.w.w...w
 .ww..ww...w..w..w.w
 ..ww....w.www...w.w
 .w.wwwwww...w.w.w.w
-..w...w.www.w.w.w.w
-w...w..gwp..w.w...w`,
+..w...wgwww.w.w.w.w
+w...w...wp..w.w...w`,
+    map`
+.w...w....ww.
+...w...ww....
+w.www..www..w
+..wg.ww...w..
+.www..w.w..w.
+..w.w.w.w....
+w...w.w.w.ww.
+..w.w.w.w.w..
+www.w...w.w..
+p...wwwwww..w`,
+    map`
+w.......
+w.wwwww.
+w.w...w.
+g.w.w.w.
+www.w.w.
+p...w...`,
+    map`
+ww.w...w.....w
+..w..w..w..wgw
+...w..w..w..w.
+.w..w..w..w..w
+..w..w..w..w.w
+w..w..w..w.w.w
+pw..w..w.w.w.w
+..w..w...w.w.w
+w....wwwww...w`,
+    map`
+pw...w...
+.w.w.w.w.
+.w.w.w.w.
+.w.w.w.w.
+.w.w.w.w.
+...w...wg`,
+    map`
+..........g
+.wwwwwwwwww
+...........
+wwwwwwwwww.
+...........
+.wwwwwwwwww
+...........
+wwwwwwwwww.
+p..........`,
+    map`
+.....
+p...g
+.....`,
 ]
 
 setSolids([ player, wall ]);
@@ -243,21 +329,17 @@ onInput("a", () => {
 	getFirst(player).x -= 1
 })
 
-  
-// these get run after every input
 afterInput(() => {
-    const goalsCovered = tilesWith(player, goal); // tiles that both contain the player and goal
+    const goalsCovered = tilesWith(player, goal); 
 
-    // if at least one goal is overlapping with a player, proceed to the next level
     if (goalsCovered.length >= 1) {
-        // increase the current level number
         level = level + 1;
 
-        // check if current level number is valid
         if (level < levels.length) {
             setMap(levels[level]);
         } else {
             addText("Congrats! you win!", { y: 4, color: color`4` });
+            playback.end()
         }
     }
 });
