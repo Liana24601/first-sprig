@@ -12,3 +12,26 @@ setLegend(
     [ wall, bitmap``],
     [ goal, bitmap``]
 );
+
+
+setSolids([])
+
+let level = 0
+const levels = [
+	map``,
+    map``,
+]
+
+setMap(levels[level])
+
+onInput("s", () => {
+	getFirst(player).y += 1
+})
+
+onInput("w", () => {
+	getFirst(player).y -= 1
+})
+
+onInput("d", () => {
+	getFirst(player).x += 1
+})
