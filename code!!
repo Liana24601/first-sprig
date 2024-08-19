@@ -6,21 +6,128 @@ yippee
     const player = "p";
     const goal = "g";
     const wall = "w";
+    const rords = "r";
 
 setLegend(
-    [ player, bitmap``],
-    [ wall, bitmap``],
-    [ goal, bitmap``]
+    [ player, bitmap`
+................
+................
+...8HHH8HHH.....
+....8H..8H......
+....8H..8H......
+...8HHHHHHH.....
+..8HH20HH20H....
+..8HH2CHH2CH....
+..8HHHHHHHHH....
+...8HHH00HH.....
+....8H..8H......
+....8HH.8HH.....
+................
+................
+................
+................`],
+    [ wall, bitmap`
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555
+7555555555555555`],
+    [ goal, bitmap`
+................
+...DDD4DDD4.....
+....D4..D4......
+....D4..D4......
+...DDDDDDD4.....
+..D02DD02DD4....
+..D52DD52DD4....
+..DDDDDDDDD4....
+...DD00DDD4.....
+....D4..D4......
+...DD4.DD4......
+................
+................
+................
+................
+................`]
+  /*  [ rords, bitmap`
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+CCCCCCCCCC
+*/
 );
-
 
 setSolids([])
 
 let level = 0
 const levels = [
-	map``,
-    map``,
+    map`
+....
+....
+p..g`,
+	map`
+.w...w
+pw.w.w
+.w.w.w
+.w.w.w
+...w.g`,
+    map`
+p.....
+wwwww.
+......
+.wwwww
+.....g`,
+    map`
+pw........w......
+.w.w.www..w.wwww.
+.w.w.w.w..w....w.
+.wwwww.ww.w.w..w.
+.w......w.w.w..w.
+.w.wwww...w.w..w.
+.w.w..www.w.w.www
+.w.w..w.w.w.w....
+......w.w...wwww.
+wwwwwww.ww.....w.
+w..........wwwwwg`,
+    map`
+.........www..
+.w.w.w.w.ww..w
+.wwwwwww.....w
+.......w.www.w
+.wwwwwwwww...w
+........gw.w..
+wwwwwwwwww.w..
+w..........ww.
+wwww.wwwww.w..
+p....w.....w..
+wwww.w.www.www
+...w.w...w.w..`,
 ]
+
+setSolids([ player, wall ]);
 
 setMap(levels[level])
 
@@ -35,3 +142,25 @@ onInput("w", () => {
 onInput("d", () => {
 	getFirst(player).x += 1
 })
+
+onInput("a", () => {
+	getFirst(player).x -= 1
+})
+
+// these get run after every input
+afterInput(() => {
+    const goalsCovered = tilesWith(player, goal); // tiles that both contain the player and goal
+
+    // if at least one goal is overlapping with a player, proceed to the next level
+    if (goalsCovered.length >= 1) {
+        // increase the current level number
+        level = level + 1;
+
+        // check if current level number is valid
+        if (level < levels.length) {
+            setMap(levels[level]);
+        } else {
+            addText("you win!", { y: 4, color: color`6` });
+        }
+    }
+});
