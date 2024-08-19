@@ -1,0 +1,14 @@
+
+/* 
+yippee
+*/
+
+    const player = "p";
+    const goal = "g";
+    const wall = "w";
+
+setLegend(
+    [ player, bitmap``],
+    [ wall, bitmap``],
+    [ goal, bitmap``]
+);
